@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio CreK | Современные цифровые решения</title>
+    <style>
+        /* Сброс стилей и базовые настройки */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8f9fa;
+            --text-primary: #2c3e50;
+            --text-secondary: #5a6c7d;
+            --accent: #7289da;
+            --border: #e1e5e9;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark-theme {
+            --bg-primary: #1a1d28;
+            --bg-secondary: #252a38;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0aec0;
+            --accent: #7289da;
+            --border: #2d3748;
+            --card-bg: #252a38;
+            --shadow: rgba(0, 0, 0, 0.25);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Шапка и навигация */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background-color: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+            transition: var(--transition);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .logo:hover {
+            color: var(--accent);
+        }
+
+        .logo-icon {
+            font-size: 32px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 32px;
+            align-items: center;
+        }
+
+        nav a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 0;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 12px;
+            background-color: var(--bg-secondary);
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .theme-icon {
+            font-size: 24px;
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+
+        /* Основной контент */
+        main {
+            padding: 80px 0;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 800;
+            margin-bottom: 24px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--accent), #5865a8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(114, 137, 218, 0.3);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-discord {
+            background: linear-gradient(135deg, #7289da, #5865a8);
+            color: white;
+        }
+
+        .btn-discord:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(114, 137, 218, 0.3);
+        }
+
+        .discord-icon {
+            font-size: 20px;
+        }
+
+        /* Discord секция */
+        .discord-section {
+            margin: 40px 0 60px;
+            text-align: center;
+        }
+
+        .discord-label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        /* Секция с кодом */
+        .code-section {
+            margin: 80px 0;
+            background-color: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid var(--border);
+        }
+
+        .code-section h2 {
+            font-size: 32px;
+            margin-bottom: 24px;
+            color: var(--text-primary);
+        }
+
+        .code-block {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            font-family: 'SF Mono', Monaco, 'Cascadia Code', monospace;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .code-block .tag {
+            color: #e06c75;
+        }
+
+        .code-block .attr {
+            color: #d19a66;
+        }
+
+        .code-block .value {
+            color: #98c379;
+        }
+
+        .code-block .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        /* Сервисы */
+        .services-section {
+            margin: 80px 0;
+        }
+
+        .services-section h2 {
+            font-size: 40px;
+            text-align: center;
+            margin-bottom: 48px;
+            color: var(--text-primary);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+            margin-bottom: 60px;
+        }
+
+        .service-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px var(--shadow);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        /* Футер */
+        footer {
+            background-color: var(--bg-secondary);
+            padding: 60px 0 30px;
+            margin-top: 80px;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column a:hover {
+            color: var(--accent);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Страница услуг */
+        .services-page {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .services-header {
+            text-align: center;
+            margin-bottom: 80px;
+            padding-top: 60px;
+        }
+
+        .services-header h1 {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .services-header p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .service-detail {
+            margin-bottom: 120px;
+        }
+
+        .service-detail-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .service-detail-icon {
+            font-size: 64px;
+            flex-shrink: 0;
+        }
+
+        .service-detail-header h2 {
+            font-size: 48px;
+            color: var(--text-primary);
+        }
+
+        .service-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .service-content p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--text-secondary);
+        }
+
+        .service-image {
+            width: 100%;
+            height: 400px;
+            border-radius: 20px;
+            overflow: hidden;
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border);
+        }
+
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .service-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 60px;
+            padding: 16px 32px;
+            border: 2px solid var(--accent);
+            border-radius: 12px;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            background-color: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Страница контактов */
+        .contacts-page {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .contacts-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 80px;
+        }
+
+        .contacts-header h1 {
+            font-size: 64px;
+            font-weight: 800;
+            margin-bottom: 24px;
+        }
+
+        .contacts-header p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contacts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .contact-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px var(--shadow);
+        }
+
+        .contact-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .contact-card h3 {
+            font-size: 24px;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            text-decoration: none;
+            font-size: 24px;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--shadow);
+        }
+
+        .social-link.discord {
+            background: linear-gradient(135deg, #7289da, #5865a8);
+            color: white;
+        }
+
+        .social-link.tiktok {
+            background: linear-gradient(135deg, #000000, #69C9D0);
+            color: white;
+        }
+
+        .social-link.instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            color: white;
+        }
+
+        .social-link.telegram {
+            background: linear-gradient(135deg, #0088cc, #34AADF);
+            color: white;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 20px;
+                height: auto;
+                padding: 20px 0;
+            }
+
+            nav ul {
+                gap: 20px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .service-content {
+                grid-template-columns: 1fr;
+            }
+
+            .services-header h1 {
+                font-size: 48px;
+            }
+
+            .service-detail-header h2 {
+                font-size: 36px;
+            }
+
+            .contacts-header h1 {
+                font-size: 48px;
+            }
+
+            .contacts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+        }
+    </style>
+</head>
+<body>
+    <!-- Главная страница -->
+    <div id="main-page">
+        <!-- Шапка -->
+        <header>
+            <div class="container">
+                <div class="header-content">
+                    <a href="#" class="logo" onclick="showPage('main')">
+                        <span class="logo-icon">🌐</span>
+                        <span>Studio CreK</span>
+                    </a>
+                    
+                    <nav>
+                        <ul>
+                            <li><a href="#" class="active" onclick="showPage('main')">Главная</a></li>
+                            <li><a href="#" onclick="showPage('services')">Наши услуги</a></li>
+                            <li><a href="#" onclick="showPage('contacts')">Контакты</a></li>
+                            <li>
+                                <button class="theme-toggle" onclick="toggleTheme()">
+                                    <span class="theme-icon">☀️</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </header>
+
+        <!-- Основной контент -->
+        <main>
+            <div class="container">
+                <!-- Герой секция -->
+                <section class="hero fade-in">
+                    <h1>Современные цифровые решения</h1>
+                    <p>Studio CreK создает инновационные веб-приложения с фокусом на пользовательский опыт, производительность и безупречный дизайн.</p>
+                    
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary" onclick="showPage('services')">
+                            Наши услуги
+                        </a>
+                    </div>
+
+                    <!-- Discord секция -->
+                    <div class="discord-section fade-in">
+                        <span class="discord-label">Мы в Discord</span>
+                        <a href="https://discord.gg/GMxZkQY3Uc" target="_blank" class="btn btn-discord">
+                            <span class="discord-icon">🎮</span>
+                            Наш сервер Discord
+                        </a>
+                    </div>
+                </section>
+
+                <!-- Секция с кодом -->
+                <section class="code-section fade-in">
+                    <h2>Чистый и структурированный код</h2>
+                    <div class="code-block">
+                        <span class="tag">&lt;!DOCTYPE html&gt;</span><br>
+                        <span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="value">"ru"</span><span class="tag">&gt;</span><br>
+                        &nbsp;&nbsp;<span class="tag">&lt;head&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">&lt;!-- Мета-теги для SEO и адаптивности --&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="value">"UTF-8"</span><span class="tag">&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value">"viewport"</span> <span class="attr">content</span>=<span class="value">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;title&gt;</span>Studio CreK | Современные решения<span class="tag">&lt;/title&gt;</span><br>
+                        &nbsp;&nbsp;<span class="tag">&lt;/head&gt;</span><br>
+                        &nbsp;&nbsp;<span class="tag">&lt;body&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;main</span> <span class="attr">class</span>=<span class="value">"container"</span><span class="tag">&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;h1&gt;</span>Инновационные решения<span class="tag">&lt;/h1&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;p&gt;</span>Мы создаем будущее веб-технологий<span class="tag">&lt;/p&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="tag">&lt;/main&gt;</span><br>
+                        &nbsp;&nbsp;<span class="tag">&lt;/body&gt;</span><br>
+                        <span class="tag">&lt;/html&gt;</span>
+                    </div>
+                </section>
+
+                <!-- Услуги -->
+                <section class="services-section fade-in">
+                    <h2>Ключевые направления</h2>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-icon">💻</div>
+                            <h3>Веб-разработка</h3>
+                            <p>Создание высокопроизводительных веб-приложений на современных фреймворках</p>
+                            <a href="#" class="btn btn-secondary" onclick="showPage('services')">Подробнее</a>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">📱</div>
+                            <h3>Мобильная адаптация</h3>
+                            <p>Адаптивные интерфейсы, которые безупречно работают на всех устройствах</p>
+                            <a href="#" class="btn btn-secondary" onclick="showPage('services')">Подробнее</a>
+                        </div>
+                        
+                        <div class="service-card">
+                            <div class="service-icon">🎨</div>
+                            <h3>UI/UX дизайн</h3>
+                            <p>Интуитивные интерфейсы, созданные на основе исследования пользователей</p>
+                            <a href="#" class="btn btn-secondary" onclick="showPage('services')">Подробнее</a>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Футер -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-column">
+                        <h4>Studio CreK</h4>
+                        <p>Создаем цифровые продукты, которые решают реальные проблемы бизнеса через технологии и дизайн.</p>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Навигация</h4>
+                        <ul>
+                            <li><a href="#" onclick="showPage('main')">Главная</a></li>
+                            <li><a href="#" onclick="showPage('services')">Наши услуги</a></li>
+                            <li><a href="#" onclick="showPage('contacts')">Контакты</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Контакты</h4>
+                        <ul>
+                            <li>📧 hello@crekstudio.com</li>
+                            <li>📍 Москва, ул. Цифровая, 42</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="copyright">
+                    &copy; 2024 Studio CreK. Все права защищены.
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Страница услуг -->
+    <div id="services-page" style="display: none;">
+        <div class="services-page">
+            <!-- Шапка -->
+            <header>
+                <div class="container">
+                    <div class="header-content">
+                        <a href="#" class="logo" onclick="showPage('main')">
+                            <span class="logo-icon">🌐</span>
+                            <span>Studio CreK</span>
+                        </a>
+                        
+                        <nav>
+                            <ul>
+                                <li><a href="#" onclick="showPage('main')">Главная</a></li>
+                                <li><a href="#" class="active" onclick="showPage('services')">Наши услуги</a></li>
+                                <li><a href="#" onclick="showPage('contacts')">Контакты</a></li>
+                                <li>
+                                    <button class="theme-toggle" onclick="toggleTheme()">
+                                        <span class="theme-icon">☀️</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Контент страницы услуг -->
+            <main>
+                <section class="services-header fade-in">
+                    <h1>Наши услуги</h1>
+                    <p>Мы предлагаем полный спектр услуг для цифровой трансформации вашего бизнеса</p>
+                </section>
+
+                <div class="container">
+                    <!-- Веб-разработка -->
+                    <section class="service-detail fade-in">
+                        <div class="service-detail-header">
+                            <div class="service-detail-icon">💻</div>
+                            <h2>Веб-разработка</h2>
+                        </div>
+                        
+                        <div class="service-content">
+                            <div>
+                                <p>Studio CreK создает высокопроизводительные веб-приложения на современных технологических стеках. Наша команда специализируется на разработке масштабируемых решений, которые эффективно решают бизнес-задачи.</p>
+                                <p>Используем React, Vue.js, Node.js и другие современные фреймворки для создания быстрых и отзывчивых интерфейсов. Каждый проект проходит через полный цикл разработки: от проектирования архитектуры до развертывания и поддержки.</p>
+                            </div>
+                            <div class="service-image">
+                                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Веб-разработка">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Мобильная адаптация -->
+                    <section class="service-detail fade-in">
+                        <div class="service-detail-header">
+                            <div class="service-detail-icon">📱</div>
+                            <h2>Мобильная адаптация</h2>
+                        </div>
+                        
+                        <div class="service-content">
+                            <div>
+                                <p>Создаем адаптивные интерфейсы, которые безупречно работают на всех устройствах - от смартфонов до настольных компьютеров. Мы учитываем особенности каждого устройства для обеспечения оптимального пользовательского опыта.</p>
+                                <p>Используем современные CSS-технологии, такие как Flexbox, Grid и контейнерные запросы, для создания гибких макетов. Тестируем на реальных устройствах различных размеров и разрешений для гарантии идеального отображения.</p>
+                            </div>
+                            <div class="service-image">
+                                <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1174&q=80" alt="Мобильная адаптация">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- UI/UX дизайн -->
+                    <section class="service-detail fade-in">
+                        <div class="service-detail-header">
+                            <div class="service-detail-icon">🎨</div>
+                            <h2>UI/UX дизайн</h2>
+                        </div>
+                        
+                        <div class="service-content">
+                            <div>
+                                <p>Проектируем интуитивные интерфейсы, основанные на глубоком исследовании поведения пользователей. Наш подход сочетает эстетику с функциональностью для создания продуктов, которые нравятся людям.</p>
+                                <p>Проводим пользовательские исследования, создаем прототипы и проводим юзабилити-тестирования. Используем принципы материального дизайна и психологии восприятия для создания эффективных интерфейсов.</p>
+                            </div>
+                            <div class="service-image">
+                                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1164&q=80" alt="UI/UX дизайн">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Кнопка возврата -->
+                    <div class="fade-in" style="text-align: center;">
+                        <a href="#" class="back-btn" onclick="showPage('main')">
+                            ← Вернуться на главную
+                        </a>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Футер -->
+            <footer>
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-column">
+                            <h4>Studio CreK</h4>
+                            <p>Создаем цифровые продукты, которые решают реальные проблемы бизнеса через технологии и дизайн.</p>
+                        </div>
+                        
+                        <div class="footer-column">
+                            <h4>Навигация</h4>
+                            <ul>
+                                <li><a href="#" onclick="showPage('main')">Главная</a></li>
+                                <li><a href="#" onclick="showPage('services')">Наши услуги</a></li>
+                                <li><a href="#" onclick="showPage('contacts')">Контакты</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-column">
+                            <h4>Контакты</h4>
+                            <ul>
+                                <li>📧 hello@crekstudio.com</li>
+                                <li>📍 Москва, ул. Цифровая, 42</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="copyright">
+                        &copy; 2024 Studio CreK. Все права защищены.
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <!-- Страница контактов -->
+    <div id="contacts-page" style="display: none;">
+        <div class="contacts-page">
+            <!-- Шапка -->
+            <header>
+                <div class="container">
+                    <div class="header-content">
+                        <a href="#" class="logo" onclick="showPage('main')">
+                            <span class="logo-icon">🌐</span>
+                            <span>Studio CreK</span>
+                        </a>
+                        
+                        <nav>
+                            <ul>
+                                <li><a href="#" onclick="showPage('main')">Главная</a></li>
+                                <li><a href="#" onclick="showPage('services')">Наши услуги</a></li>
+                                <li><a href="#" class="active" onclick="showPage('contacts')">Контакты</a></li>
+                                <li>
+                                    <button class="theme-toggle" onclick="toggleTheme()">
+                                        <span class="theme-icon">☀️</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Контент страницы контактов -->
+            <main>
+                <section class="contacts-header fade-in">
+                    <h1>Контакты</h1>
+                    <p>Свяжитесь с нами через удобные для вас каналы коммуникации</p>
+                </section>
+
+                <div class="container">
+                    <div class="contacts-grid">
+                        <!-- Discord -->
+                        <div class="contact-card fade-in">
+                            <div class="contact-icon">🎮</div>
+                            <h3>Discord</h3>
+                            <p>Присоединяйтесь к нашему сообществу в Discord. Общайтесь с командой, задавайте вопросы и получайте свежие новости.</p>
+                            <a href="https://discord.gg/GMxZkQY3Uc" target="_blank" class="btn btn-discord">
+                                Присоединиться к серверу
+                            </a>
+                        </div>
+
+                        <!-- TikTok -->
+                        <div class="contact-card fade-in">
+                            <div class="contact-icon">🎵</div>
+                            <h3>TikTok</h3>
+                            <p>Следите за нашими короткими видео о процессе разработки, лайфхаками и обновлениями в мире технологий.</p>
+                            <a href="#" class="btn btn-secondary" onclick="showComingSoon('TikTok')">
+                                Перейти в TikTok
+                            </a>
+                        </div>
+
+                        <!-- Instagram -->
+                        <div class="contact-card fade-in">
+                            <div class="contact-icon">📸</div>
+                            <h3>Instagram</h3>
+                            <p>Смотрите наши работы, бэкстейдж проектов и истории из жизни студии в Instagram.</p>
+                            <a href="#" class="btn btn-secondary" onclick="showComingSoon('Instagram')">
+                                Перейти в Instagram
+                            </a>
+                        </div>
+
+                        <!-- Telegram -->
+                        <div class="contact-card fade-in">
+                            <div class="contact-icon">✈️</div>
+                            <h3>Telegram</h3>
+                            <p>Подписывайтесь на наш канал в Telegram для получения обновлений и важных объявлений.</p>
+                            <a href="#" class="btn btn-secondary" onclick="showComingSoon('Telegram')">
+                                Перейти в Telegram
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Социальные ссылки -->
+                    <div class="fade-in" style="text-align: center; margin-top: 60px;">
+                        <h3 style="margin-bottom: 30px; font-size: 24px;">Быстрый доступ к соцсетям</h3>
+                        <div class="social-links">
+                            <a href="https://discord.gg/GMxZkQY3Uc" target="_blank" class="social-link discord" title="Discord">
+                                🎮
+                            </a>
+                            <a href="#" onclick="showComingSoon('TikTok')" class="social-link tiktok" title="TikTok">
+                                🎵
+                            </a>
+                            <a href="#" onclick="showComingSoon('Instagram')" class="social-link instagram" title="Instagram">
+                                📸
+                            </a>
+                            <a href="#" onclick="showComingSoon('Telegram')" class="social-link telegram" title="Telegram">
+                                ✈️
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Кнопка возврата -->
+                    <div class="fade-in" style="text-align: center; margin-top: 80px;">
+                        <a href="#" class="back-btn" onclick="showPage('main')">
+                            ← Вернуться на главную
+                        </a>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Футер -->
+            <footer>
+                <div class="container">
+                    <div class="footer-content">
+                        <div class="footer-column">
+                            <h4>Studio CreK</h4>
+                            <p>Создаем цифровые продукты, которые решают реальные проблемы бизнеса через технологии и дизайн.</p>
+                        </div>
+                        
+                        <div class="footer-column">
+                            <h4>Навигация</h4>
+                            <ul>
+                                <li><a href="#" onclick="showPage('main')">Главная</a></li>
+                                <li><a href="#" onclick="showPage('services')">Наши услуги</a></li>
+                                <li><a href="#" onclick="showPage('contacts')">Контакты</a></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="footer-column">
+                            <h4>Контакты</h4>
+                            <ul>
+                                <li>📧 hello@crekstudio.com</li>
+                                <li>📍 Москва, ул. Цифровая, 42</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="copyright">
+                        &copy; 2024 Studio CreK. Все права защищены.
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script>
+        // Система смены темы
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.querySelector('.theme-icon');
+            
+            if (body.classList.contains('dark-theme')) {
+                body.classList.remove('dark-theme');
+                themeIcon.textContent = '☀️';
+                themeIcon.style.transform = 'rotate(0deg)';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark-theme');
+                themeIcon.textContent = '🌙';
+                themeIcon.style.transform = 'rotate(360deg)';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Загрузка сохраненной темы
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const themeIcon = document.querySelector('.theme-icon');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeIcon.textContent = '🌙';
+            } else {
+                document.body.classList.remove('dark-theme');
+                themeIcon.textContent = '☀️';
+            }
+        }
+
+        // Навигация между страницами
+        function showPage(pageId) {
+            const pages = ['main-page', 'services-page', 'contacts-page'];
+            
+            // Скрыть все страницы
+            pages.forEach(page => {
+                document.getElementById(page).style.display = 'none';
+            });
+            
+            // Показать нужную страницу
+            document.getElementById(pageId + '-page').style.display = 'block';
+            
+            // Обновить навигацию
+            updateActiveNav(pageId);
+            
+            // Прокрутка к началу страницы
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Обновление активной навигации
+        function updateActiveNav(activePage) {
+            // Найти все навигационные ссылки на всех страницах
+            const pages = ['main-page', 'services-page', 'contacts-page'];
+            
+            // Сбросить активные классы на всех страницах
+            pages.forEach(page => {
+                const navLinks = document.querySelectorAll(`#${page} nav a`);
+                navLinks.forEach(link => link.classList.remove('active'));
+            });
+            
+            // Установить активный класс на текущей странице
+            const currentPage = document.getElementById(activePage + '-page');
+            if (currentPage) {
+                const links = currentPage.querySelectorAll('nav a');
+                
+                // Найти ссылку, соответствующую текущей странице
+                links.forEach(link => {
+                    if (link.textContent === getPageTitle(activePage) || 
+                        (activePage === 'main' && link.textContent === 'Главная') ||
+                        (activePage === 'services' && link.textContent === 'Наши услуги') ||
+                        (activePage === 'contacts' && link.textContent === 'Контакты')) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        }
+
+        // Получить заголовок страницы
+        function getPageTitle(pageId) {
+            const titles = {
+                'main': 'Главная',
+                'services': 'Наши услуги',
+                'contacts': 'Контакты'
+            };
+            return titles[pageId] || '';
+        }
+
+        // Уведомление о скором появлении
+        function showComingSoon(platform) {
+            alert(`Страница ${platform} скоро будет доступна! В данный момент вы можете присоединиться к нашему Discord серверу.`);
+        }
+
+        // Анимации при загрузке
+        function initAnimations() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.1}s`;
+            });
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            initAnimations();
+            
+            // Показать главную страницу по умолчанию
+            showPage('main');
+        });
+
+        // Плавная прокрутка
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
