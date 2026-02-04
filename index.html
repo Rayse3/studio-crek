@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Studio CreK | Подготовка к ЕГЭ по математике и информатике</title>
+    <title>Studio CreK | Профильная математика с экспертами ЕГЭ</title>
     <style>
         /* Сброс стилей и базовые настройки */
         :root {
@@ -13,11 +13,11 @@
             --text-secondary: #5a6c7d;
             --accent: #7289da;
             --math-accent: #4CAF50;
-            --informatics-accent: #2196F3;
             --button-accent: #FF4081;
             --border: #e1e5e9;
             --card-bg: #ffffff;
             --shadow: rgba(0, 0, 0, 0.08);
+            --shadow-lg: rgba(0, 0, 0, 0.15);
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
@@ -28,11 +28,11 @@
             --text-secondary: #a0aec0;
             --accent: #7289da;
             --math-accent: #66BB6A;
-            --informatics-accent: #42A5F5;
             --button-accent: #FF4081;
             --border: #2d3748;
             --card-bg: #252a38;
             --shadow: rgba(0, 0, 0, 0.25);
+            --shadow-lg: rgba(0, 0, 0, 0.35);
         }
 
         * {
@@ -56,15 +56,56 @@
             padding: 0 24px;
         }
 
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(-20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .slide-in {
+            animation: slideIn 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+
         /* Шапка и навигация */
         header {
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
             background-color: var(--bg-primary);
             border-bottom: 1px solid var(--border);
             backdrop-filter: blur(10px);
             transition: var(--transition);
+            box-shadow: 0 4px 20px var(--shadow);
         }
 
         .header-content {
@@ -87,18 +128,13 @@
         }
 
         .logo:hover {
-            color: var(--accent);
+            color: var(--math-accent);
             transform: translateY(-2px);
         }
 
         .logo-icon {
             font-size: 32px;
             animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
         }
 
         nav ul {
@@ -124,7 +160,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: linear-gradient(90deg, var(--math-accent), var(--informatics-accent));
+            background-color: var(--math-accent);
             transition: width 0.3s ease;
         }
 
@@ -134,8 +170,29 @@
         }
 
         nav a:hover {
-            color: var(--accent);
+            color: var(--math-accent);
             transform: translateY(-2px);
+        }
+
+        .user-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--math-accent), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .user-icon:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px var(--shadow);
+            border-color: var(--accent);
         }
 
         .theme-toggle {
@@ -145,8 +202,8 @@
             padding: 10px;
             border-radius: 12px;
             background-color: var(--bg-secondary);
-            width: 50px;
-            height: 50px;
+            width: 44px;
+            height: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -159,7 +216,7 @@
         }
 
         .theme-icon {
-            font-size: 24px;
+            font-size: 20px;
             transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
@@ -178,17 +235,7 @@
             font-weight: 800;
             margin-bottom: 24px;
             line-height: 1.2;
-            background: linear-gradient(135deg, var(--math-accent), var(--informatics-accent), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 8s ease infinite;
-            background-size: 200% 200%;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            color: var(--text-primary);
         }
 
         .hero p {
@@ -208,20 +255,19 @@
 
         .btn {
             padding: 18px 36px;
-            border-radius: 16px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 18px;
+            font-size: 16px;
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            border: 3px solid transparent;
+            gap: 10px;
+            border: 2px solid transparent;
             cursor: pointer;
             position: relative;
             overflow: hidden;
-            letter-spacing: 0.5px;
         }
 
         .btn::before {
@@ -240,7 +286,7 @@
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--math-accent), var(--informatics-accent));
+            background: linear-gradient(135deg, var(--math-accent), #2E7D32);
             color: white;
             box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
         }
@@ -251,29 +297,23 @@
         }
 
         .btn-secondary {
-            background-color: transparent;
-            color: var(--accent);
-            border-color: var(--accent);
+            background: transparent;
+            color: var(--text-primary);
+            border: 2px solid var(--border);
         }
 
         .btn-secondary:hover {
-            background-color: var(--accent);
-            color: white;
             transform: translateY(-4px);
-            box-shadow: 0 15px 35px rgba(114, 137, 218, 0.3);
+            box-shadow: 0 15px 35px var(--shadow);
+            border-color: var(--accent);
         }
 
         .btn-buy {
             background: linear-gradient(135deg, #FF4081, #FF5722);
             color: white;
-            box-shadow: 0 10px 30px rgba(255, 64, 129, 0.4);
+            box-shadow: 0 10px 30px rgba(255, 64, 129, 0.3);
             animation: pulse 2s infinite;
             border: 3px solid rgba(255, 255, 255, 0.3);
-        }
-
-        @keyframes pulse {
-            0%, 100% { box-shadow: 0 10px 30px rgba(255, 64, 129, 0.4); }
-            50% { box-shadow: 0 15px 40px rgba(255, 64, 129, 0.6); }
         }
 
         .btn-buy:hover {
@@ -294,55 +334,16 @@
             font-weight: 800;
             box-shadow: 0 5px 15px rgba(255, 64, 129, 0.4);
             z-index: 2;
-            animation: badgePulse 1.5s infinite alternate;
+            animation: pulse 1.5s infinite alternate;
         }
 
-        @keyframes badgePulse {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-
-        /* Discord секция */
-        .discord-section {
-            margin: 60px 0;
-            text-align: center;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(114, 137, 218, 0.1), rgba(76, 175, 80, 0.1));
-            border-radius: 20px;
-            border: 2px solid var(--accent);
-            animation: borderGlow 3s infinite alternate;
-        }
-
-        @keyframes borderGlow {
-            0% { border-color: var(--accent); box-shadow: 0 0 20px rgba(114, 137, 218, 0.3); }
-            100% { border-color: var(--math-accent); box-shadow: 0 0 30px rgba(76, 175, 80, 0.4); }
-        }
-
-        .discord-label {
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            display: block;
-            font-weight: 600;
-        }
-
-        .discord-cta {
-            font-size: 18px;
-            color: var(--text-primary);
-            margin: 20px 0 30px;
-            max-width: 600px;
-            margin: 20px auto 30px;
-        }
-
-        /* Секция с курсом математики */
+        /* Секция курса математики */
         .math-course-section {
             margin: 80px 0;
-            background-color: var(--bg-secondary);
-            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(45, 125, 50, 0.1));
+            border-radius: 25px;
             padding: 60px;
-            border: 1px solid var(--border);
+            border: 3px solid var(--math-accent);
             position: relative;
             overflow: hidden;
         }
@@ -354,227 +355,63 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(90deg, var(--math-accent), var(--informatics-accent));
+            background: linear-gradient(90deg, var(--math-accent), #2E7D32);
         }
 
         .math-course-section h2 {
-            font-size: 40px;
-            margin-bottom: 30px;
+            font-size: 42px;
+            margin-bottom: 20px;
             color: var(--text-primary);
             text-align: center;
         }
 
-        .math-course-section h2::after {
-            content: '';
-            display: block;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(to right, var(--math-accent), var(--informatics-accent));
-            margin: 20px auto;
-            border-radius: 2px;
-        }
-
         .course-highlights {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
-            margin-bottom: 50px;
+            margin: 40px 0;
         }
 
         .highlight-item {
             text-align: center;
             padding: 30px;
-            background-color: var(--card-bg);
-            border-radius: 16px;
+            background: var(--card-bg);
+            border-radius: 20px;
             border: 2px solid var(--border);
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
         }
 
         .highlight-item:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 50px var(--shadow);
             border-color: var(--math-accent);
+            box-shadow: 0 20px 40px var(--shadow);
         }
 
         .highlight-icon {
             font-size: 48px;
             margin-bottom: 20px;
             color: var(--math-accent);
-            animation: iconFloat 3s ease-in-out infinite;
-        }
-
-        @keyframes iconFloat {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
+            animation: float 4s ease-in-out infinite;
         }
 
         .highlight-item h3 {
             font-size: 22px;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             color: var(--text-primary);
         }
 
         .highlight-item p {
             color: var(--text-secondary);
-            font-size: 16px;
-            line-height: 1.7;
-        }
-
-        .teachers-info {
-            display: flex;
-            gap: 30px;
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(33, 150, 243, 0.1));
-            padding: 40px;
-            border-radius: 20px;
-            border: 2px solid var(--border);
-            margin: 40px 0;
-            animation: slideIn 0.8s ease-out;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .teacher-card {
-            flex: 1;
-            text-align: center;
-            padding: 25px;
-            background-color: var(--card-bg);
-            border-radius: 16px;
-            border: 2px solid transparent;
-            transition: var(--transition);
-        }
-
-        .teacher-card:hover {
-            border-color: var(--math-accent);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px var(--shadow);
-        }
-
-        .teacher-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--math-accent), var(--informatics-accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            color: white;
-            margin: 0 auto 20px;
-            font-weight: 700;
-            border: 4px solid var(--card-bg);
-            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.3);
-        }
-
-        .teacher-details h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-        }
-
-        .teacher-details p {
-            color: var(--text-secondary);
-            margin-bottom: 15px;
-            font-size: 15px;
-        }
-
-        .teacher-experience {
-            display: inline-block;
-            background: var(--math-accent);
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .countdown-section {
-            text-align: center;
-            margin: 50px 0;
-            padding: 40px;
-            background: linear-gradient(135deg, rgba(33, 150, 243, 0.1), rgba(76, 175, 80, 0.1));
-            border-radius: 20px;
-            border: 2px solid var(--informatics-accent);
-        }
-
-        .countdown-section h3 {
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: var(--text-primary);
-        }
-
-        .countdown {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin: 30px 0;
-        }
-
-        .countdown-item {
-            text-align: center;
-            min-width: 100px;
-        }
-
-        .countdown-number {
-            font-size: 48px;
-            font-weight: 800;
-            color: var(--informatics-accent);
-            line-height: 1;
-            margin-bottom: 10px;
-            text-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
-        }
-
-        .countdown-label {
-            font-size: 14px;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .exam-dates {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .exam-date {
-            padding: 20px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            border: 2px solid var(--border);
-            min-width: 200px;
-            transition: var(--transition);
-        }
-
-        .exam-date:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px var(--shadow);
-        }
-
-        .exam-date h4 {
-            font-size: 18px;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-        }
-
-        .exam-date p {
-            color: var(--text-secondary);
-            font-size: 14px;
+            line-height: 1.6;
         }
 
         .price-section {
             text-align: center;
             margin: 50px 0;
             padding: 50px;
-            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(114, 137, 218, 0.1));
+            background: linear-gradient(135deg, rgba(255, 64, 129, 0.1), rgba(255, 87, 34, 0.1));
             border-radius: 20px;
-            border: 3px solid var(--math-accent);
+            border: 3px solid var(--button-accent);
             position: relative;
             overflow: hidden;
         }
@@ -585,12 +422,7 @@
             top: 20px;
             right: 20px;
             font-size: 32px;
-            animation: fire 2s infinite alternate;
-        }
-
-        @keyframes fire {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(1.2); opacity: 1; }
+            animation: float 3s ease-in-out infinite;
         }
 
         .original-price {
@@ -603,9 +435,9 @@
         .current-price {
             font-size: 64px;
             font-weight: 800;
-            color: var(--math-accent);
+            color: var(--button-accent);
             margin-bottom: 15px;
-            text-shadow: 0 5px 20px rgba(76, 175, 80, 0.3);
+            text-shadow: 0 5px 20px rgba(255, 64, 129, 0.3);
         }
 
         .price-note {
@@ -626,110 +458,428 @@
             font-weight: 700;
             margin-top: 25px;
             box-shadow: 0 10px 25px rgba(255, 64, 129, 0.3);
-            animation: timePulse 3s infinite;
         }
 
-        @keyframes timePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .courses-info {
+        /* Преподаватели */
+        .teachers-section {
             margin: 80px 0;
         }
 
-        .courses-info h2 {
+        .teachers-section h2 {
             font-size: 40px;
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 48px;
             color: var(--text-primary);
         }
 
-        .courses-grid {
+        .teachers-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 32px;
         }
 
-        .course-info-card {
+        .teacher-card {
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 35px;
-            border: 2px solid transparent;
+            padding: 40px;
+            border: 2px solid var(--border);
             transition: var(--transition);
+            text-align: center;
             position: relative;
             overflow: hidden;
         }
 
-        .course-info-card:hover {
+        .teacher-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 25px 60px var(--shadow);
         }
 
-        .course-info-card.math {
-            border-color: var(--math-accent);
-        }
-
-        .course-info-card.informatics {
-            border-color: var(--informatics-accent);
-        }
-
-        .course-icon {
+        .teacher-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--math-accent), #2E7D32);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-size: 48px;
-            margin-bottom: 20px;
-            display: inline-block;
-            animation: rotate 20s linear infinite;
+            color: white;
+            margin: 0 auto 24px;
+            font-weight: 700;
+            border: 4px solid var(--card-bg);
+            box-shadow: 0 10px 30px var(--shadow);
         }
 
-        @keyframes rotate {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .course-info-card h3 {
+        .teacher-info h3 {
             font-size: 28px;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+        }
+
+        .teacher-specialization {
+            color: var(--math-accent);
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .teacher-experience {
+            display: inline-block;
+            background: var(--bg-secondary);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .teacher-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* Социальные сети */
+        .social-section {
+            margin: 60px 0;
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, rgba(114, 137, 218, 0.1), rgba(0, 136, 204, 0.1));
+            border-radius: 20px;
+            border: 2px solid var(--accent);
+        }
+
+        .social-section h3 {
+            font-size: 32px;
+            margin-bottom: 30px;
+            color: var(--text-primary);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .social-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            transition: var(--transition);
+            padding: 20px;
+            border-radius: 20px;
+            background: var(--card-bg);
+            min-width: 150px;
+            border: 2px solid var(--border);
+        }
+
+        .social-link:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow);
+        }
+
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-discord {
+            background: #7289da;
+            color: white;
+        }
+
+        .social-tiktok {
+            background: #000000;
+            color: white;
+        }
+
+        .social-telegram {
+            background: #0088cc;
+            color: white;
+        }
+
+        .social-instagram {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+            color: white;
+        }
+
+        .social-label {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        /* Модальные окна */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            animation: modalFadeIn 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: var(--bg-primary);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: modalSlideIn 0.4s ease;
+            border: 2px solid var(--border);
+            box-shadow: 0 25px 50px var(--shadow-lg);
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px) scale(0.9); opacity: 0; }
+            to { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), transparent);
+        }
+
+        .modal-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 28px;
+            cursor: pointer;
+            padding: 5px;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+        }
+
+        .close-modal:hover {
+            color: var(--text-primary);
+            background: var(--bg-secondary);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .auth-tab.active {
+            color: var(--math-accent);
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--math-accent);
+            border-radius: 2px;
+        }
+
+        .auth-tab:hover {
+            color: var(--math-accent);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 15px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: var(--transition);
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--math-accent);
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.15);
+        }
+
+        .form-input:hover {
+            border-color: var(--accent);
+        }
+
+        .form-error {
+            color: var(--button-accent);
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .form-success {
+            color: var(--math-accent);
+            font-size: 14px;
+            margin-top: 8px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        /* Профиль пользователя */
+        .profile-modal {
+            max-width: 600px;
+        }
+
+        .profile-info {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .profile-avatar-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--math-accent), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            color: white;
+            margin: 0 auto 20px;
+            font-weight: 700;
+            border: 4px solid var(--card-bg);
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .profile-name {
+            font-size: 28px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .profile-email {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .profile-courses {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .profile-courses h4 {
+            font-size: 18px;
             margin-bottom: 15px;
             color: var(--text-primary);
         }
 
-        .course-info-card p {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-            line-height: 1.7;
-        }
-
-        .course-features {
-            list-style: none;
-            margin: 25px 0;
-        }
-
-        .course-features li {
-            padding: 10px 0;
-            color: var(--text-secondary);
-            border-bottom: 1px solid var(--border);
+        .course-item {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
         }
 
-        .course-features li:before {
-            content: '✓';
-            color: var(--math-accent);
-            font-weight: bold;
+        .course-item:last-child {
+            border-bottom: none;
         }
 
-        .course-info-card.informatics .course-features li:before {
-            color: var(--informatics-accent);
+        .course-name {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .course-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            background: var(--math-accent);
+            color: white;
         }
 
         /* Футер */
         footer {
-            background-color: var(--bg-secondary);
+            background: var(--bg-secondary);
             padding: 60px 0 30px;
             margin-top: 80px;
-            border-top: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
+            border-top: 2px solid var(--border);
         }
 
         .footer-content {
@@ -741,7 +891,7 @@
 
         .footer-column h4 {
             font-size: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 24px;
             color: var(--text-primary);
             position: relative;
             padding-bottom: 15px;
@@ -754,7 +904,7 @@
             left: 0;
             width: 50px;
             height: 3px;
-            background: linear-gradient(90deg, var(--math-accent), var(--informatics-accent));
+            background: var(--math-accent);
             border-radius: 2px;
         }
 
@@ -763,20 +913,11 @@
         }
 
         .footer-column ul li {
-            margin-bottom: 15px;
-            padding-left: 20px;
-            position: relative;
+            margin-bottom: 12px;
+            transition: var(--transition);
         }
 
-        .footer-column ul li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--math-accent);
-            transition: transform 0.3s ease;
-        }
-
-        .footer-column ul li:hover::before {
+        .footer-column ul li:hover {
             transform: translateX(5px);
         }
 
@@ -784,12 +925,13 @@
             color: var(--text-secondary);
             text-decoration: none;
             transition: var(--transition);
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .footer-column a:hover {
-            color: var(--accent);
-            transform: translateX(5px);
+            color: var(--math-accent);
         }
 
         .copyright {
@@ -816,7 +958,7 @@
             }
 
             .hero h1 {
-                font-size: 40px;
+                font-size: 36px;
             }
 
             .hero p {
@@ -830,7 +972,7 @@
 
             .btn {
                 width: 100%;
-                max-width: 350px;
+                max-width: 300px;
                 padding: 16px 24px;
             }
 
@@ -842,63 +984,41 @@
                 grid-template-columns: 1fr;
             }
 
-            .teachers-info {
-                flex-direction: column;
-                gap: 20px;
+            .teachers-grid {
+                grid-template-columns: 1fr;
             }
 
-            .countdown {
-                flex-wrap: wrap;
+            .social-links {
                 gap: 15px;
             }
 
-            .countdown-item {
-                min-width: 80px;
-            }
-
-            .countdown-number {
-                font-size: 36px;
-            }
-
-            .exam-dates {
-                flex-direction: column;
-                align-items: center;
+            .social-link {
+                min-width: 120px;
+                padding: 15px;
             }
 
             .current-price {
                 font-size: 48px;
             }
 
-            .courses-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .teacher-card {
-                padding: 20px;
+            .price-section {
+                padding: 30px 20px;
             }
         }
 
-        /* Анимации */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Утилиты */
+        .hidden {
+            display: none !important;
         }
 
-        .fade-in {
-            animation: fadeIn 0.8s ease forwards;
-            opacity: 0;
+        .text-center {
+            text-align: center;
         }
 
-        .stagger-delay-1 { animation-delay: 0.1s; }
-        .stagger-delay-2 { animation-delay: 0.2s; }
-        .stagger-delay-3 { animation-delay: 0.3s; }
-        .stagger-delay-4 { animation-delay: 0.4s; }
-        .stagger-delay-5 { animation-delay: 0.5s; }
-
-        /* Плавная прокрутка */
-        html {
-            scroll-behavior: smooth;
-        }
+        .mt-4 { margin-top: 16px; }
+        .mt-8 { margin-top: 32px; }
+        .mb-4 { margin-bottom: 16px; }
+        .mb-8 { margin-bottom: 32px; }
     </style>
 </head>
 <body>
@@ -909,15 +1029,26 @@
             <div class="container">
                 <div class="header-content">
                     <a href="#" class="logo" onclick="showPage('main')">
-                        <span class="logo-icon">🚀</span>
+                        <span class="logo-icon">🌐</span>
                         <span>Studio CreK</span>
                     </a>
                     
                     <nav>
                         <ul>
-                            <li><a href="#" class="active" onclick="showPage('main')">Главная</a></li>
-                            <li><a href="#courses">Курсы</a></li>
-                            <li><a href="#countdown">До ЕГЭ</a></li>
+                            <li><a href="#" class="active">Главная</a></li>
+                            <li><a href="#teachers" onclick="scrollToTeachers()">Преподаватели</a></li>
+                            <li><a href="#math-course">Курс математики</a></li>
+                            <li><a href="#social">Соцсети</a></li>
+                            <li id="profile-nav" class="hidden">
+                                <div class="user-icon" onclick="showProfileModal()" id="user-icon">
+                                    П
+                                </div>
+                            </li>
+                            <li id="login-nav">
+                                <button class="btn btn-primary" onclick="showAuthModal()" style="padding: 10px 24px;">
+                                    Вход / Регистрация
+                                </button>
+                            </li>
                             <li>
                                 <button class="theme-toggle" onclick="toggleTheme()">
                                     <span class="theme-icon">☀️</span>
@@ -934,166 +1065,146 @@
             <div class="container">
                 <!-- Герой секция -->
                 <section class="hero fade-in">
-                    <h1>Подготовка к ЕГЭ 2025<br>Математика + Информатика</h1>
-                    <p>Интенсивные 3-месячные курсы от экспертов ЕГЭ. Гарантия результата 70+ баллов на обоих экзаменах.</p>
+                    <h1>Профильная математика 70+ баллов</h1>
+                    <p>Интенсивный 3-месячный курс от экспертов ЕГЭ. Подготовка с нуля до продвинутого уровня с гарантией результата</p>
                     
                     <div class="cta-buttons">
-                        <button class="btn btn-primary" onclick="startCourse()">
-                            <span>Бесплатный пробный урок</span>
+                        <button class="btn btn-primary" onclick="showAuthModal()">
+                            <span>🎯 Начать обучение</span>
                         </button>
-                        <button class="btn btn-buy" onclick="buyCourse()">
-                            <span>КУПИТЬ КУРС СО СКИДКОЙ</span>
-                            <span class="discount-badge">-300₽</span>
+                        <button class="btn btn-secondary" onclick="scrollToTeachers()">
+                            <span>👨‍🏫 О наших преподавателях</span>
                         </button>
-                    </div>
-
-                    <!-- Discord секция -->
-                    <div class="discord-section fade-in stagger-delay-1">
-                        <span class="discord-label">Задайте вопросы преподавателям</span>
-                        <h3 style="margin: 15px 0; color: var(--text-primary);">Присоединяйтесь к нашему Discord</h3>
-                        <p class="discord-cta">Получите консультацию по подготовке, общайтесь с преподавателями и другими участниками курса</p>
-                        <a href="https://discord.gg/GMxZkQY3Uc" target="_blank" class="btn btn-secondary" style="margin-top: 20px;">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 10px;">
-                                <path d="M20.317 4.3698C18.352 3.1718 16.232 2.3358 14 1.9398C13.699 1.8788 13.395 1.9888 13.205 2.2288C12.322 3.2838 11.487 4.4908 10.903 5.0588C9.069 4.7978 7.246 4.7978 5.463 5.0588C4.878 4.4908 4.044 3.2838 3.161 2.2288C2.971 1.9888 2.667 1.8788 2.366 1.9398C0.134 2.3358 -1.986 3.1718 -3.951 4.3698C-4.186 4.5068 -4.319 4.7708 -4.295 5.0488C-4.272 6.0198 -4.089 7.4808 -3.869 8.4198C-3.793 8.7338 -3.485 8.9358 -3.163 8.8828C-1.049 8.5338 0.566 8.2658 2.184 8.2658C2.889 8.2658 3.595 8.3238 4.295 8.4178C4.6 8.4668 4.894 8.2648 4.976 7.9698C5.972 4.7458 8.139 4.7458 9.134 7.9698C9.216 8.2648 9.51 8.4668 9.815 8.4178C10.515 8.3238 11.221 8.2658 11.926 8.2658C13.544 8.2658 15.159 8.5338 17.273 8.8828C17.595 8.9358 17.903 8.7338 17.979 8.4198C18.199 7.4808 18.382 6.0198 18.405 5.0488C18.429 4.7708 18.296 4.5068 18.061 4.3698H20.317Z"/>
-                            </svg>
-                            <span>Перейти в Discord сервер</span>
-                        </a>
                     </div>
                 </section>
 
-                <!-- Секция с курсами -->
-                <section id="courses" class="courses-info fade-in stagger-delay-2">
-                    <h2>Наши курсы подготовки</h2>
+                <!-- Преподаватели -->
+                <section id="teachers" class="teachers-section fade-in">
+                    <h2>Наши преподаватели</h2>
                     
-                    <div class="courses-grid">
-                        <!-- Курс математики -->
-                        <div class="course-info-card math fade-in stagger-delay-3">
-                            <div class="course-icon">🧮</div>
-                            <h3>Профильная математика</h3>
-                            <p>Полный курс подготовки к ЕГЭ по профильной математике. От основ до продвинутого уровня. Гарантия 70+ баллов.</p>
-                            <ul class="course-features">
-                                <li>Длительность: 3 месяца</li>
-                                <li>Цель: 70+ баллов</li>
-                                <li>2 преподавателя-эксперта</li>
-                                <li>Разбор всех заданий ЕГЭ</li>
-                                <li>Пробные экзамены каждую неделю</li>
-                            </ul>
+                    <div class="teachers-grid">
+                        <div class="teacher-card slide-in" style="animation-delay: 0.1s;">
+                            <div class="teacher-avatar">ВВ</div>
+                            <div class="teacher-info">
+                                <h3>В. Вавилов</h3>
+                                <div class="teacher-specialization">Эксперт ЕГЭ по профильной математике</div>
+                                <div class="teacher-experience">10+ лет опыта подготовки</div>
+                            </div>
+                            <p class="teacher-description">
+                                Автор уникальной методики подготовки к ЕГЭ по математике. Более 500 учеников сдали экзамен на 80+ баллов. 
+                                Специализируется на разборе сложных задач второй части. Разработал систему ускоренной подготовки для 
+                                достижения максимального результата за минимальное время.
+                            </p>
                         </div>
                         
-                        <!-- Курс информатики -->
-                        <div class="course-info-card informatics fade-in stagger-delay-4">
-                            <div class="course-icon">💻</div>
-                            <h3>Информатика и ИКТ</h3>
-                            <p>Интенсивная подготовка к ЕГЭ по информатике. Программирование, алгоритмы, теория информации и практические задачи.</p>
-                            <ul class="course-features">
-                                <li>Параллельный курс с математикой</li>
-                                <li>Основы программирования на Python</li>
-                                <li>Алгоритмы и структуры данных</li>
-                                <li>Решение задач второй части</li>
-                                <li>Гарантия 70+ баллов</li>
-                            </ul>
+                        <div class="teacher-card slide-in" style="animation-delay: 0.2s;">
+                            <div class="teacher-avatar">ИА</div>
+                            <div class="teacher-info">
+                                <h3>И. Алескендеров</h3>
+                                <div class="teacher-specialization">Эксперт ЕГЭ по математике</div>
+                                <div class="teacher-experience">8 лет опыта подготовки</div>
+                            </div>
+                            <p class="teacher-description">
+                                Специалист по подготовке к олимпиадам и сложным задачам. Разработал систему интенсивной подготовки 
+                                для учеников, начинающих с нуля. Помогает понять суть математических концепций, а не просто 
+                                заучивать формулы. Автор сборника задач повышенной сложности.
+                            </p>
                         </div>
                     </div>
                 </section>
 
-                <!-- Секция с курсом математики -->
-                <section class="math-course-section fade-in stagger-delay-3">
-                    <h2>Эксперты курса</h2>
+                <!-- Курс математики -->
+                <section id="math-course" class="math-course-section fade-in">
+                    <h2>Курс профильной математики</h2>
+                    <p class="text-center" style="color: var(--text-secondary); margin-bottom: 40px; font-size: 18px;">
+                        3 месяца интенсивной подготовки от экспертов ЕГЭ. Гарантия результата 70+ баллов
+                    </p>
                     
                     <div class="course-highlights">
-                        <div class="highlight-item fade-in stagger-delay-1">
-                            <div class="highlight-icon">🎯</div>
-                            <h3>Гарантия результата</h3>
-                            <p>70+ баллов на ЕГЭ или возврат части стоимости курса</p>
-                        </div>
-                        
-                        <div class="highlight-item fade-in stagger-delay-2">
-                            <div class="highlight-icon">👨‍🏫</div>
-                            <h3>2 эксперта ЕГЭ</h3>
-                            <p>Совместное преподавание для максимального результата</p>
-                        </div>
-                        
-                        <div class="highlight-item fade-in stagger-delay-3">
+                        <div class="highlight-item slide-in" style="animation-delay: 0.1s;">
                             <div class="highlight-icon">📚</div>
                             <h3>3 месяца обучения</h3>
-                            <p>Оптимальный срок для полноценной подготовки</p>
+                            <p>Оптимальный срок для полноценной подготовки от основ до продвинутого уровня</p>
                         </div>
                         
-                        <div class="highlight-item fade-in stagger-delay-4">
+                        <div class="highlight-item slide-in" style="animation-delay: 0.2s;">
+                            <div class="highlight-icon">🎯</div>
+                            <h3>Цель: 70+ баллов</h3>
+                            <p>Гарантированный результат на профильном ЕГЭ или возврат части стоимости</p>
+                        </div>
+                        
+                        <div class="highlight-item slide-in" style="animation-delay: 0.3s;">
+                            <div class="highlight-icon">👨‍🏫</div>
+                            <h3>2 эксперта ЕГЭ</h3>
+                            <p>Обучение под руководством В. Вавилова и И. Алескендерова</p>
+                        </div>
+                        
+                        <div class="highlight-item slide-in" style="animation-delay: 0.4s;">
                             <div class="highlight-icon">💼</div>
                             <h3>Практика + теория</h3>
-                            <p>Еженедельные пробники и разбор ошибок</p>
+                            <p>Еженедельные пробные экзамены и разбор всех типов задач</p>
                         </div>
                     </div>
 
-                    <div class="teachers-info">
-                        <div class="teacher-card fade-in stagger-delay-2">
-                            <div class="teacher-avatar">АВ</div>
-                            <div class="teacher-details">
-                                <h3>Андрей Вавилов</h3>
-                                <p>Эксперт ЕГЭ по математике с 10-летним опытом подготовки. Автор методики "Математика без страха". Более 500 учеников сдали на 70+ баллов.</p>
-                                <span class="teacher-experience">10 лет опыта</span>
-                            </div>
-                        </div>
-
-                        <div class="teacher-card fade-in stagger-delay-3">
-                            <div class="teacher-avatar">ИА</div>
-                            <div class="teacher-details">
-                                <h3>Идрис Алескендеров</h3>
-                                <p>Эксперт ЕГЭ по математике и информатике. 8 лет успешной подготовки. Специалист по сложным задачам второй части экзамена.</p>
-                                <span class="teacher-experience">8 лет опыта</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Обратный отсчет -->
-                    <div id="countdown" class="countdown-section fade-in stagger-delay-4">
-                        <h3>До ЕГЭ 2025 осталось:</h3>
-                        <div class="countdown">
-                            <div class="countdown-item">
-                                <div class="countdown-number" id="days">00</div>
-                                <div class="countdown-label">дней</div>
-                            </div>
-                            <div class="countdown-item">
-                                <div class="countdown-number" id="hours">00</div>
-                                <div class="countdown-label">часов</div>
-                            </div>
-                            <div class="countdown-item">
-                                <div class="countdown-number" id="minutes">00</div>
-                                <div class="countdown-label">минут</div>
-                            </div>
-                            <div class="countdown-item">
-                                <div class="countdown-number" id="seconds">00</div>
-                                <div class="countdown-label">секунд</div>
-                            </div>
-                        </div>
-                        
-                        <div class="exam-dates">
-                            <div class="exam-date">
-                                <h4>📅 Математика</h4>
-                                <p>Основной период:<br><strong>30 мая 2025</strong></p>
-                            </div>
-                            <div class="exam-date">
-                                <h4>💻 Информатика</h4>
-                                <p>Основной период:<br><strong>20 июня 2025</strong></p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Ценовая секция -->
-                    <div class="price-section fade-in stagger-delay-5">
-                        <div class="original-price">600 ₽ за каждый курс</div>
+                    <div class="price-section">
+                        <div class="original-price">600 ₽</div>
                         <div class="current-price">300 ₽</div>
-                        <p class="price-note">Специальная цена при покупке двух курсов одновременно. Экономия 600 рублей!</p>
+                        <p class="price-note">Специальная цена действует только до 1 мая 2025 года. Экономия 300 рублей!</p>
                         
                         <div class="cta-buttons">
-                            <button class="btn btn-buy" onclick="buyCourse()" style="padding: 20px 50px; font-size: 20px;">
-                                <span>КУПИТЬ 2 КУРСА СО СКИДКОЙ</span>
-                                <span class="discount-badge">-600₽</span>
+                            <button class="btn btn-buy" onclick="showPaymentModal()">
+                                <span>КУПИТЬ КУРС</span>
+                                <span class="discount-badge">-300₽</span>
                             </button>
                         </div>
                         
                         <div class="time-left">🔥 Акция действует до 1 мая 2025 года</div>
+                    </div>
+                </section>
+
+                <!-- Социальные сети -->
+                <section id="social" class="social-section fade-in">
+                    <h3>Мы в социальных сетях</h3>
+                    <p style="color: var(--text-secondary); margin-bottom: 30px;">
+                        Присоединяйтесь к нашим сообществам, чтобы быть в курсе новостей, получать полезные материалы и общаться с преподавателями
+                    </p>
+                    
+                    <div class="social-links">
+                        <a href="https://discord.gg/GMxZkQY3Uc" target="_blank" class="social-link">
+                            <div class="social-icon social-discord">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.317 4.3698C18.352 3.1718 16.232 2.3358 14 1.9398C13.699 1.8788 13.395 1.9888 13.205 2.2288C12.322 3.2838 11.487 4.4908 10.903 5.0588C9.069 4.7978 7.246 4.7978 5.463 5.0588C4.878 4.4908 4.044 3.2838 3.161 2.2288C2.971 1.9888 2.667 1.8788 2.366 1.9398C0.134 2.3358 -1.986 3.1718 -3.951 4.3698C-4.186 4.5068 -4.319 4.7708 -4.295 5.0488C-4.272 6.0198 -4.089 7.4808 -3.869 8.4198C-3.793 8.7338 -3.485 8.9358 -3.163 8.8828C-1.049 8.5338 0.566 8.2658 2.184 8.2658C2.889 8.2658 3.595 8.3238 4.295 8.4178C4.6 8.4668 4.894 8.2648 4.976 7.9698C5.972 4.7458 8.139 4.7458 9.134 7.9698C9.216 8.2648 9.51 8.4668 9.815 8.4178C10.515 8.3238 11.221 8.2658 11.926 8.2658C13.544 8.2658 15.159 8.5338 17.273 8.8828C17.595 8.9358 17.903 8.7338 17.979 8.4198C18.199 7.4808 18.382 6.0198 18.405 5.0488C18.429 4.7708 18.296 4.5068 18.061 4.3698H20.317Z"/>
+                                </svg>
+                            </div>
+                            <span class="social-label">Discord</span>
+                        </a>
+                        
+                        <a href="#" target="_blank" class="social-link" onclick="showComingSoon('TikTok')">
+                            <div class="social-icon social-tiktok">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M19.589 6.686a4.793 4.793 0 0 1-3.77-4.245V2h-3.445v13.672a2.896 2.896 0 0 1-5.201 1.743l-.002-.001.002.001a2.895 2.895 0 0 1 3.183-4.51v-3.5a6.329 6.329 0 0 0-5.394 10.692 6.33 6.33 0 0 0 10.857-4.424V8.687a8.182 8.182 0 0 0 4.773 1.526V6.79a4.831 4.831 0 0 1-3.77-1.105l.001.003z"/>
+                                </svg>
+                            </div>
+                            <span class="social-label">TikTok</span>
+                        </a>
+                        
+                        <a href="#" target="_blank" class="social-link" onclick="showComingSoon('Telegram')">
+                            <div class="social-icon social-telegram">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.06-.2-.07-.06-.17-.04-.24-.02-.1.02-1.79 1.14-5.06 3.35-.48.33-.92.49-1.31.48-.43-.01-1.27-.24-1.89-.44-.76-.24-1.36-.37-1.31-.78.03-.24.37-.48 1-.74z"/>
+                                </svg>
+                            </div>
+                            <span class="social-label">Telegram</span>
+                        </a>
+                        
+                        <a href="#" target="_blank" class="social-link" onclick="showComingSoon('Instagram')">
+                            <div class="social-icon social-instagram">
+                                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </div>
+                            <span class="social-label">Instagram</span>
+                        </a>
                     </div>
                 </section>
             </div>
@@ -1105,45 +1216,238 @@
                 <div class="footer-content">
                     <div class="footer-column">
                         <h4>Studio CreK</h4>
-                        <p>Профессиональная подготовка к ЕГЭ по математике и информатике. Эксперты с многолетним опытом. Гарантия результата.</p>
-                        <a href="https://discord.gg/GMxZkQY3Uc" target="_blank" class="btn btn-secondary" style="margin-top: 20px;">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
-                                <path d="M20.317 4.3698C18.352 3.1718 16.232 2.3358 14 1.9398C13.699 1.8788 13.395 1.9888 13.205 2.2288C12.322 3.2838 11.487 4.4908 10.903 5.0588C9.069 4.7978 7.246 4.7978 5.463 5.0588C4.878 4.4908 4.044 3.2838 3.161 2.2288C2.971 1.9888 2.667 1.8788 2.366 1.9398C0.134 2.3358 -1.986 3.1718 -3.951 4.3698C-4.186 4.5068 -4.319 4.7708 -4.295 5.0488C-4.272 6.0198 -4.089 7.4808 -3.869 8.4198C-3.793 8.7338 -3.485 8.9358 -3.163 8.8828C-1.049 8.5338 0.566 8.2658 2.184 8.2658C2.889 8.2658 3.595 8.3238 4.295 8.4178C4.6 8.4668 4.894 8.2648 4.976 7.9698C5.972 4.7458 8.139 4.7458 9.134 7.9698C9.216 8.2648 9.51 8.4668 9.815 8.4178C10.515 8.3238 11.221 8.2658 11.926 8.2658C13.544 8.2658 15.159 8.5338 17.273 8.8828C17.595 8.9358 17.903 8.7338 17.979 8.4198C18.199 7.4808 18.382 6.0198 18.405 5.0488C18.429 4.7708 18.296 4.5068 18.061 4.3698H20.317Z"/>
-                            </svg>
-                            Вопросы в Discord
-                        </a>
+                        <p>Профессиональная подготовка к ЕГЭ по профильной математике. Эксперты с многолетним опытом. Гарантия результата.</p>
+                        <button class="btn btn-secondary" onclick="scrollToTeachers()" style="margin-top: 20px; width: 100%;">
+                            👨‍🏫 О наших преподавателях
+                        </button>
                     </div>
                     
                     <div class="footer-column">
-                        <h4>Курсы</h4>
+                        <h4>Контактная информация</h4>
                         <ul>
-                            <li><a href="#courses">Профильная математика</a></li>
-                            <li><a href="#courses">Информатика и ИКТ</a></li>
-                            <li><a href="#countdown">Расписание ЕГЭ</a></li>
-                            <li><a href="#" onclick="startCourse()">Бесплатный урок</a></li>
+                            <li><a href="mailto:support@crekstudio.com">📧 support@crekstudio.com</a></li>
+                            <li><a href="tel:+79991234567">📞 +7 (999) 123-45-67</a></li>
+                            <li>🕐 9:00-21:00 ежедневно</li>
+                            <li><a href="https://discord.gg/GMxZkQY3Uc" target="_blank">🎮 Discord сервер</a></li>
                         </ul>
                     </div>
                     
                     <div class="footer-column">
-                        <h4>Информация</h4>
+                        <h4>Документы</h4>
                         <ul>
-                            <li>🎯 Цель: 70+ баллов</li>
-                            <li>⏱ Длительность: 3 месяца</li>
-                            <li>👨‍🏫 Преподаватели: 2 эксперта</li>
-                            <li>💰 Цена: 300 ₽ за курс</li>
-                            <li>🔥 Акция до: 1 мая 2025</li>
+                            <li><a href="#" onclick="showTerms()">📄 Пользовательское соглашение</a></li>
+                            <li><a href="#" onclick="showPrivacy()">🔒 Политика конфиденциальности</a></li>
+                            <li><a href="#" onclick="showRefund()">💳 Условия возврата</a></li>
                         </ul>
                     </div>
                 </div>
                 
                 <div class="copyright">
-                    &copy; 2024-2025 Studio CreK. Все права защищены. Подготовка к ЕГЭ 2025.
+                    &copy; 2024-2025 Studio CreK. Все права защищены. Курс профильной математики 300₽ (скидка 300₽ до 1 мая 2025)
                 </div>
             </div>
         </footer>
     </div>
 
+    <!-- Модальное окно авторизации -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Вход и регистрация</h3>
+                <button class="close-modal" onclick="closeModal('authModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" onclick="switchAuthTab('login')">Вход</button>
+                    <button class="auth-tab" onclick="switchAuthTab('register')">Регистрация</button>
+                </div>
+                
+                <!-- Форма входа -->
+                <div id="loginForm" class="auth-form active">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="loginEmail" class="form-input" placeholder="Ваш email" autocomplete="email">
+                        <div class="form-error" id="loginEmailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Пароль</label>
+                        <input type="password" id="loginPassword" class="form-input" placeholder="Ваш пароль" autocomplete="current-password">
+                        <div class="form-error" id="loginPasswordError"></div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="login()" style="width: 100%; margin-top: 20px;">
+                        Войти
+                    </button>
+                </div>
+                
+                <!-- Форма регистрации -->
+                <div id="registerForm" class="auth-form">
+                    <div class="form-group">
+                        <label class="form-label">Имя</label>
+                        <input type="text" id="registerName" class="form-input" placeholder="Ваше имя" autocomplete="name">
+                        <div class="form-error" id="registerNameError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" id="registerEmail" class="form-input" placeholder="Ваш email" autocomplete="email">
+                        <div class="form-error" id="registerEmailError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Пароль</label>
+                        <input type="password" id="registerPassword" class="form-input" placeholder="Придумайте пароль" autocomplete="new-password">
+                        <div class="form-error" id="registerPasswordError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Подтвердите пароль</label>
+                        <input type="password" id="registerConfirmPassword" class="form-input" placeholder="Повторите пароль" autocomplete="new-password">
+                        <div class="form-error" id="registerConfirmPasswordError"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer;">
+                            <input type="checkbox" id="registerTerms" style="margin-top: 3px;">
+                            <span style="font-size: 14px; color: var(--text-secondary);">
+                                Я принимаю <a href="#" onclick="showTerms()" style="color: var(--math-accent);">пользовательское соглашение</a>
+                            </span>
+                        </label>
+                        <div class="form-error" id="registerTermsError"></div>
+                    </div>
+                    
+                    <button class="btn btn-primary" onclick="register()" style="width: 100%; margin-top: 20px;">
+                        Зарегистрироваться
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно профиля -->
+    <div id="profileModal" class="modal">
+        <div class="modal-content profile-modal">
+            <div class="modal-header">
+                <h3>Мой профиль</h3>
+                <button class="close-modal" onclick="closeModal('profileModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-info">
+                    <div class="profile-avatar-large" id="profileAvatar">П</div>
+                    <div class="profile-name" id="profileName">Пользователь</div>
+                    <div class="profile-email" id="profileEmail">user@example.com</div>
+                </div>
+                
+                <div class="profile-courses">
+                    <h4>Мои курсы</h4>
+                    <div id="userCoursesList">
+                        <div class="course-item">
+                            <div class="course-name">Профильная математика</div>
+                            <div class="course-status">Активен</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-primary" onclick="showPaymentModal()" style="width: 100%; margin-top: 20px;">
+                    Купить курс
+                </button>
+                
+                <button class="btn btn-secondary" onclick="logout()" style="width: 100%; margin-top: 10px;">
+                    Выйти
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно оплаты -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Оплата курса</h3>
+                <button class="close-modal" onclick="closeModal('paymentModal')">×</button>
+            </div>
+            <div class="modal-body">
+                <h4 style="margin-bottom: 15px;">Профильная математика 70+ баллов</h4>
+                <div style="background: var(--bg-secondary); padding: 20px; border-radius: 12px; margin: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <span>Стоимость курса:</span>
+                        <span style="text-decoration: line-through; color: var(--text-secondary);">600₽</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 24px; font-weight: 700; color: var(--button-accent);">
+                        <span>Итого к оплате:</span>
+                        <span>300₽</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 14px; color: var(--text-secondary);">
+                        <span>Экономия:</span>
+                        <span style="color: var(--math-accent); font-weight: 600;">300₽</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Способ оплаты</label>
+                    <select id="paymentMethod" class="form-input" style="padding: 15px;">
+                        <option value="card">💳 Банковская карта</option>
+                        <option value="yoomoney">💰 ЮMoney</option>
+                        <option value="sbp">🏦 СБП</option>
+                        <option value="qiwi">🧾 QIWI</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Email для чека</label>
+                    <input type="email" id="paymentEmail" class="form-input" placeholder="Ваш email для получения чека">
+                </div>
+                
+                <button class="btn btn-buy" onclick="processPayment()" style="width: 100%; margin-top: 20px;">
+                    💳 Оплатить 300₽
+                </button>
+                
+                <div class="text-center mt-4">
+                    <p style="font-size: 12px; color: var(--text-secondary);">
+                        Нажимая кнопку, вы соглашаетесь с условиями оплаты
+                    </p>
+                    <div class="time-left" style="margin-top: 15px; font-size: 14px;">🔥 Акция до 1 мая 2025</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Глобальные переменные
+        let currentUser = null;
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTheme();
+            loadUser();
+            setupAnimations();
+            setupEventListeners();
+        });
+
+        // Настройка анимаций
+        function setupAnimations() {
+            // Анимация появления элементов при скролле
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const element = entry.target;
+                        if (element.classList.contains('fade-in') || element.classList.contains('slide-in')) {
+                            element.style.animationPlayState = 'running';
+                        }
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            document.querySelectorAll('.fade-in, .slide-in').forEach(el => {
+                el.style.animationPlayState = 'paused';
+                observer.observe(el);
+            });
+        }
+
         // Система смены темы
         function toggleTheme() {
             const body = document.body;
@@ -1151,157 +1455,462 @@
             
             if (body.classList.contains('dark-theme')) {
                 body.classList.remove('dark-theme');
-                themeIcon.textContent = '☀️';
-                themeIcon.style.transform = 'rotate(0deg)';
+                themeIcon.textContent = '🌙';
                 localStorage.setItem('theme', 'light');
             } else {
                 body.classList.add('dark-theme');
-                themeIcon.textContent = '🌙';
-                themeIcon.style.transform = 'rotate(360deg)';
+                themeIcon.textContent = '☀️';
                 localStorage.setItem('theme', 'dark');
             }
+            
+            // Анимация переключения темы
+            themeIcon.style.transform = 'rotate(360deg)';
+            setTimeout(() => {
+                themeIcon.style.transform = 'rotate(0deg)';
+            }, 500);
         }
 
-        // Загрузка сохраненной темы
         function loadTheme() {
             const savedTheme = localStorage.getItem('theme');
             const themeIcon = document.querySelector('.theme-icon');
             
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark-theme');
-                themeIcon.textContent = '🌙';
+                themeIcon.textContent = '☀️';
             } else {
                 document.body.classList.remove('dark-theme');
-                themeIcon.textContent = '☀️';
+                themeIcon.textContent = '🌙';
             }
         }
 
-        // Навигация
-        function showPage(pageId) {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        // Функция начала курса
-        function startCourse() {
-            alert('🎓 Добро пожаловать на бесплатный пробный урок!\n\nДоступ к уроку будет открыт в нашем Discord сервере: https://discord.gg/GMxZkQY3Uc\n\nПрисоединяйтесь и получите:\n✓ Пробный урок математики\n✓ Пробный урок информатики\n✓ Консультацию с преподавателями');
-        }
-
-        // Функция покупки курса
-        function buyCourse() {
-            const today = new Date();
-            const endDate = new Date('2025-05-01');
-            
-            if (today > endDate) {
-                alert('К сожалению, акция закончилась 1 мая 2025 года.\n\nПолная цена курсов составляет:\n• Математика: 600 рублей\n• Информатика: 600 рублей\n\nСвяжитесь с нами в Discord для уточнения актуальных предложений.');
-                return;
-            }
-            
-            const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
-            
-            const confirmBuy = confirm(`🎯 КУРСЫ ПОДГОТОВКИ К ЕГЭ 2025\n\n📚 Что включено:\n• Профильная математика (70+ баллов)\n• Информатика и ИКТ (70+ баллов)\n• 2 преподавателя-эксперта\n• 3 месяца обучения\n• Еженедельные пробники\n\n💰 Цена: 600 рублей\n🔥 Скидка: 300 рублей\n💵 Итого: 300 рублей\n\n⏳ Акция действует ещё ${daysLeft} дней (до 1 мая 2025)\n\nПерейти к оформлению заказа?`);
-            
-            if (confirmBuy) {
-                alert('✅ Отлично! Заказ оформлен.\n\nДля завершения покупки и получения доступа к курсам:\n\n1. Перейдите в наш Discord сервер: https://discord.gg/GMxZkQY3Uc\n2. Напишите администратору в личные сообщения\n3. Укажите код заказа: CREK-2025\n4. Получите доступ к материалам курса\n\n🎓 Успешной подготовки к ЕГЭ!');
+        // Управление пользователями
+        function loadUser() {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                updateNavigation();
             }
         }
 
-        // Обратный отсчет до ЕГЭ
-        function updateCountdown() {
-            const mathExamDate = new Date('2025-05-30T10:00:00');
-            const now = new Date();
-            const diff = mathExamDate - now;
-            
-            if (diff <= 0) {
-                document.getElementById('days').textContent = '00';
-                document.getElementById('hours').textContent = '00';
-                document.getElementById('minutes').textContent = '00';
-                document.getElementById('seconds').textContent = '00';
-                return;
-            }
-            
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('days').textContent = days.toString().padStart(2, '0');
-            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
-            
-            // Анимация чисел
-            if (seconds === 59) {
-                const numbers = document.querySelectorAll('.countdown-number');
-                numbers.forEach(num => {
-                    num.style.transform = 'scale(1.1)';
-                    setTimeout(() => {
-                        num.style.transform = 'scale(1)';
-                    }, 200);
-                });
-            }
-        }
-
-        // Анимации при загрузке
-        function initAnimations() {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach((element, index) => {
-                element.style.animationDelay = `${index * 0.1}s`;
-            });
-            
-            // Запуск обратного отсчета
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
-        }
-
-        // Инициализация при загрузке страницы
-        document.addEventListener('DOMContentLoaded', () => {
-            loadTheme();
-            initAnimations();
-            
-            // Проверка акции
-            const today = new Date();
-            const endDate = new Date('2025-05-01');
-            if (today <= endDate) {
-                const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
-                console.log(`🔥 Акция действует! До 1 мая 2025 осталось ${daysLeft} дней.`);
-            }
-        });
-
-        // Плавная прокрутка для якорных ссылок
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
+        function saveUser() {
+            if (currentUser) {
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
                 
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
+                // Сохраняем в список пользователей (предотвращение дублирования)
+                const users = JSON.parse(localStorage.getItem('crekUsers') || '[]');
+                const userIndex = users.findIndex(u => u.email === currentUser.email);
+                
+                if (userIndex !== -1) {
+                    users[userIndex] = currentUser;
+                } else {
+                    users.push(currentUser);
+                }
+                
+                localStorage.setItem('crekUsers', JSON.stringify(users));
+            }
+        }
+
+        // Обновление навигации
+        function updateNavigation() {
+            const profileNav = document.getElementById('profile-nav');
+            const loginNav = document.getElementById('login-nav');
+            
+            if (currentUser) {
+                profileNav.classList.remove('hidden');
+                loginNav.classList.add('hidden');
+                
+                // Обновление иконки пользователя
+                const userIcon = document.getElementById('user-icon');
+                if (userIcon) {
+                    userIcon.textContent = currentUser.name.charAt(0).toUpperCase();
+                }
+            } else {
+                profileNav.classList.add('hidden');
+                loginNav.classList.remove('hidden');
+            }
+        }
+
+        // Плавный скролл к преподавателям
+        function scrollToTeachers() {
+            const teachersSection = document.getElementById('teachers');
+            if (teachersSection) {
+                teachersSection.scrollIntoView({ 
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Анимация выделения
+                teachersSection.style.transform = 'scale(1.02)';
+                setTimeout(() => {
+                    teachersSection.style.transform = 'scale(1)';
+                }, 300);
+            }
+        }
+
+        // Модальные окна
+        function showAuthModal() {
+            closeAllModals();
+            document.getElementById('authModal').style.display = 'flex';
+            switchAuthTab('login');
+        }
+
+        function showProfileModal() {
+            if (!currentUser) {
+                showAuthModal();
+                return;
+            }
+            
+            // Обновление данных профиля
+            document.getElementById('profileAvatar').textContent = currentUser.name.charAt(0).toUpperCase();
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            
+            // Обновление списка курсов
+            const coursesList = document.getElementById('userCoursesList');
+            if (currentUser.courses && currentUser.courses.length > 0) {
+                coursesList.innerHTML = currentUser.courses.map(course => `
+                    <div class="course-item">
+                        <div class="course-name">${getCourseName(course)}</div>
+                        <div class="course-status">Активен</div>
+                    </div>
+                `).join('');
+            } else {
+                coursesList.innerHTML = '<p style="color: var(--text-secondary); text-align: center;">У вас пока нет активных курсов</p>';
+            }
+            
+            document.getElementById('profileModal').style.display = 'flex';
+        }
+
+        function showPaymentModal() {
+            if (!currentUser) {
+                showAuthModal();
+                return;
+            }
+            
+            document.getElementById('paymentEmail').value = currentUser.email;
+            document.getElementById('paymentModal').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            clearFormErrors(modalId);
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+
+        // Переключение между вкладками входа/регистрации
+        function switchAuthTab(tab) {
+            // Обновление активных вкладок
+            document.querySelectorAll('.auth-tab').forEach(t => {
+                t.classList.remove('active');
+            });
+            document.querySelectorAll('.auth-form').forEach(f => {
+                f.classList.remove('active');
+            });
+            
+            // Активация выбранной вкладки
+            if (tab === 'login') {
+                document.querySelector('.auth-tab[onclick*="login"]').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelector('.auth-tab[onclick*="register"]').classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
+        }
+
+        // Валидация форм
+        function clearFormErrors(formId) {
+            const form = document.getElementById(formId);
+            if (!form) return;
+            
+            const errors = form.querySelectorAll('.form-error');
+            errors.forEach(error => {
+                error.style.display = 'none';
+                error.textContent = '';
+            });
+        }
+
+        function showError(elementId, message) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+                element.style.display = 'block';
+                
+                // Анимация ошибки
+                element.style.transform = 'translateX(-10px)';
+                setTimeout(() => {
+                    element.style.transform = 'translateX(0)';
+                }, 100);
+            }
+        }
+
+        // Регистрация пользователя
+        function register() {
+            const name = document.getElementById('registerName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim().toLowerCase();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+            const terms = document.getElementById('registerTerms').checked;
+            
+            clearFormErrors('registerForm');
+            
+            let hasError = false;
+            
+            if (!name) {
+                showError('registerNameError', 'Введите ваше имя');
+                hasError = true;
+            }
+            
+            if (!email) {
+                showError('registerEmailError', 'Введите email');
+                hasError = true;
+            } else if (!validateEmail(email)) {
+                showError('registerEmailError', 'Введите корректный email');
+                hasError = true;
+            } else {
+                // Проверка на дублирование email
+                const users = JSON.parse(localStorage.getItem('crekUsers') || '[]');
+                if (users.some(u => u.email === email)) {
+                    showError('registerEmailError', 'Пользователь с таким email уже существует');
+                    hasError = true;
+                }
+            }
+            
+            if (!password) {
+                showError('registerPasswordError', 'Введите пароль');
+                hasError = true;
+            } else if (password.length < 6) {
+                showError('registerPasswordError', 'Пароль должен быть не менее 6 символов');
+                hasError = true;
+            }
+            
+            if (!confirmPassword) {
+                showError('registerConfirmPasswordError', 'Подтвердите пароль');
+                hasError = true;
+            } else if (password !== confirmPassword) {
+                showError('registerConfirmPasswordError', 'Пароли не совпадают');
+                hasError = true;
+            }
+            
+            if (!terms) {
+                showError('registerTermsError', 'Примите пользовательское соглашение');
+                hasError = true;
+            }
+            
+            if (hasError) return;
+            
+            // Создание пользователя
+            currentUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                password: password,
+                courses: [],
+                registered: new Date().toISOString()
+            };
+            
+            saveUser();
+            updateNavigation();
+            
+            // Анимация успешной регистрации
+            const registerBtn = document.querySelector('#registerForm .btn-primary');
+            const originalText = registerBtn.innerHTML;
+            registerBtn.innerHTML = '✅ Регистрация успешна!';
+            registerBtn.style.background = 'var(--math-accent)';
+            registerBtn.disabled = true;
+            
+            setTimeout(() => {
+                closeModal('authModal');
+                showProfileModal();
+                
+                // Восстановление кнопки
+                setTimeout(() => {
+                    registerBtn.innerHTML = originalText;
+                    registerBtn.style.background = '';
+                    registerBtn.disabled = false;
+                }, 1000);
+            }, 1500);
+        }
+
+        // Вход в систему
+        function login() {
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
+            
+            clearFormErrors('loginForm');
+            
+            if (!email) {
+                showError('loginEmailError', 'Введите email');
+                return;
+            }
+            
+            if (!password) {
+                showError('loginPasswordError', 'Введите пароль');
+                return;
+            }
+            
+            // Поиск пользователя
+            const users = JSON.parse(localStorage.getItem('crekUsers') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (!user) {
+                showError('loginPasswordError', 'Неверный email или пароль');
+                return;
+            }
+            
+            currentUser = user;
+            saveUser();
+            updateNavigation();
+            
+            // Анимация успешного входа
+            const loginBtn = document.querySelector('#loginForm .btn-primary');
+            const originalText = loginBtn.innerHTML;
+            loginBtn.innerHTML = '✅ Вход выполнен!';
+            loginBtn.style.background = 'var(--math-accent)';
+            loginBtn.disabled = true;
+            
+            setTimeout(() => {
+                closeModal('authModal');
+                showProfileModal();
+                
+                // Восстановление кнопки
+                setTimeout(() => {
+                    loginBtn.innerHTML = originalText;
+                    loginBtn.style.background = '';
+                    loginBtn.disabled = false;
+                }, 1000);
+            }, 1000);
+        }
+
+        // Выход из системы
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateNavigation();
+            closeModal('profileModal');
+            
+            // Анимация выхода
+            alert('👋 Вы успешно вышли из системы');
+        }
+
+        // Обработка оплаты
+        function processPayment() {
+            if (!currentUser) return;
+            
+            const email = document.getElementById('paymentEmail').value.trim();
+            const method = document.getElementById('paymentMethod').value;
+            
+            if (!email) {
+                alert('Введите email для получения чека');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                alert('Введите корректный email');
+                return;
+            }
+            
+            // Анимация оплаты
+            const payBtn = document.querySelector('#paymentModal .btn-buy');
+            const originalText = payBtn.innerHTML;
+            payBtn.innerHTML = '⏳ Обработка платежа...';
+            payBtn.disabled = true;
+            
+            // Имитация обработки платежа
+            setTimeout(() => {
+                payBtn.innerHTML = '✅ Оплата успешна!';
+                payBtn.style.background = 'var(--math-accent)';
+                
+                setTimeout(() => {
+                    closeModal('paymentModal');
+                    
+                    // Добавление курса пользователю
+                    if (!currentUser.courses.includes('math')) {
+                        currentUser.courses.push('math');
+                        saveUser();
+                        updateNavigation();
+                    }
+                    
+                    alert(`🎉 Оплата успешно завершена!\n\nЧек отправлен на email: ${email}\n\nДоступ к курсу "Профильная математика" активирован на 3 месяца.`);
+                    
+                    // Восстановление кнопки
+                    setTimeout(() => {
+                        payBtn.innerHTML = originalText;
+                        payBtn.style.background = '';
+                        payBtn.disabled = false;
+                    }, 1000);
+                }, 1000);
+            }, 2000);
+        }
+
+        // Вспомогательные функции
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function getCourseName(code) {
+            switch(code) {
+                case 'math': return 'Профильная математика';
+                default: return 'Неизвестный курс';
+            }
+        }
+
+        function showComingSoon(platform) {
+            alert(`📱 ${platform}\n\nСтраница в разработке. Присоединяйтесь к нашему Discord серверу для получения актуальной информации!`);
+        }
+
+        function showTerms() {
+            alert('📄 Пользовательское соглашение\n\nПолный текст соглашения доступен по ссылке: https://crekstudio.com/terms');
+        }
+
+        function showPrivacy() {
+            alert('🔒 Политика конфиденциальности\n\nПолный текст политики доступен по ссылке: https://crekstudio.com/privacy');
+        }
+
+        function showRefund() {
+            alert('💳 Условия возврата\n\nВозврат средств возможен в течение 14 дней с момента покупки при условии неиспользования более 30% материалов курса.');
+        }
+
+        // Настройка обработчиков событий
+        function setupEventListeners() {
+            // Закрытие модальных окон по клику вне их
+            window.addEventListener('click', (event) => {
+                if (event.target.classList.contains('modal')) {
+                    closeAllModals();
                 }
             });
-        });
-
-        // Анимация при скролле
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+            
+            // Закрытие модальных окон по Escape
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    closeAllModals();
                 }
             });
-        }, observerOptions);
-
-        // Наблюдаем за всеми анимируемыми элементами
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
+            
+            // Плавная прокрутка для якорных ссылок
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href === '#') return;
+                    
+                    e.preventDefault();
+                    const targetId = href.substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>
